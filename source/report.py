@@ -79,7 +79,7 @@ def append_data_sheet(filename, dataframe, sheet_name='New Sheet', startrow=None
 
         try:
             # read the report template
-            writer.book = load_workbook(filename)
+            book = load_workbook(filename)
 
             # get the last row of the template
             if startrow is None and sheet_name in writer.book.sheetnames:
@@ -92,7 +92,7 @@ def append_data_sheet(filename, dataframe, sheet_name='New Sheet', startrow=None
                 writer.book.create_sheet(sheet_name, idx)
 
             # copy sheets
-            writer.sheets = {ws.title: ws for ws in writer.book.worksheets}
+            sheets = {ws.title: ws for ws in writer.book.worksheets}
         except OSError as err:
             logging.exception("Failed to add data in the file %s | sheet name: %s | error: %s",
                               filename, sheet_name, err.errno)
@@ -104,7 +104,7 @@ def append_data_sheet(filename, dataframe, sheet_name='New Sheet', startrow=None
         dataframe.to_excel(writer, sheet_name, startrow=startrow, **to_excel_kwargs)
 
         # save excel
-        writer.save()
+        writer.close()
 
     else:
         logging.exception('Could not find the report file %s', filename)
