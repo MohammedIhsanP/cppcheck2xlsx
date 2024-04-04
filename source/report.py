@@ -25,7 +25,8 @@ def generate_report(all_report_data_list):
 
 
     # report filename
-    report_filename = os.path.splitext("cppcheck-report-")[0] + '-' + time.strftime("%Y%m%d-%H%M%S") + '.xlsx'
+    #report_filename = os.path.splitext("cppcheck-report-")[0] + '-' + time.strftime("%Y%m%d-%H%M%S") + '.xlsx'
+    report_filename = 'cppcheck-report.xlsx'
 
     # copy template report
     report_path = os.path.join(REPORT_DIR, report_filename)
